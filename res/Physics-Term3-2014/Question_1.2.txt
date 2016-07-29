@@ -1,0 +1,6 @@
+The height at which the acceleration due to gravity becomes G/9 in terms of R, the radius of the earth is
+
+a) (2)^1/2 R 
+b) 2R 
+c) R/2 
+d) R/4

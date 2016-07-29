@@ -1,0 +1,1 @@
+Derive the equations for the final velocities for two bodies undergoing head on elastic collision in one dimension and hence show that their difference in velocities remains same but their direction is reversed.

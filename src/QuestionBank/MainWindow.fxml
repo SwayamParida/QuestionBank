@@ -1,0 +1,104 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<?import javafx.scene.control.*?>
+
+<?import java.net.URL?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<GridPane xmlns:fx="http://javafx.com/fxml"
+          fx:controller="QuestionBank.MainWindowController"
+          alignment="CENTER" hgap="10" vgap="10">
+    <stylesheets>
+        <URL value="@MaterialDesign.css"/>
+        <URL value="@MaterialDesign_ToggleSwitch.css"/>
+        <URL value="@style.css"/>
+    </stylesheets>
+    <padding>
+        <Insets right="20" left="20"/>
+    </padding>
+    <columnConstraints>
+        <ColumnConstraints percentWidth="30"/>
+        <ColumnConstraints percentWidth="50"/>
+        <ColumnConstraints percentWidth="20"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints percentHeight="35"/>
+        <RowConstraints percentHeight="5"/>
+        <RowConstraints percentHeight="15"/>
+        <RowConstraints percentHeight="10"/>
+        <RowConstraints percentHeight="20"/>
+    </rowConstraints>
+    <TitledPane GridPane.columnIndex="0" GridPane.rowIndex="0"
+                text="Filter" collapsible="true">
+        <GridPane alignment="TOP_LEFT">
+            <padding>
+                <Insets right="10" left="10" bottom="5" top="5"/>
+            </padding>
+            <columnConstraints>
+                <ColumnConstraints percentWidth="47.5"/>
+                <ColumnConstraints percentWidth="5"/>
+                <ColumnConstraints percentWidth="47.5"/>
+            </columnConstraints>
+            <Label GridPane.columnIndex="0" GridPane.rowIndex="0"> Year </Label>
+            <ComboBox GridPane.columnIndex="0" GridPane.rowIndex="1"
+                      fx:id="yearComboBox" onAction="#filter">
+                <items>
+                    <FXCollections fx:factory="observableArrayList"><String fx:value="None"/></FXCollections>
+                </items>
+            </ComboBox>
+            <Label GridPane.columnIndex="2" GridPane.rowIndex="0"> Type </Label>
+            <ComboBox GridPane.columnIndex="2" GridPane.rowIndex="1"
+                      fx:id="typesComboBox" onAction="#filter">
+                <items>
+                    <FXCollections fx:factory="observableArrayList"><String fx:value="None"/></FXCollections>
+                </items>
+            </ComboBox>
+            <Label GridPane.columnIndex="0" GridPane.rowIndex="2"> Topic </Label>
+            <ComboBox GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="3"
+                      fx:id="topicComboBox" onAction="#filter">
+                <items>
+                    <FXCollections fx:factory="observableArrayList"><String fx:value="None"/></FXCollections>
+                </items>
+            </ComboBox>
+            <Label GridPane.columnIndex="0" GridPane.rowIndex="4"> Session </Label>
+            <ComboBox GridPane.columnIndex="0" GridPane.rowIndex="5"
+                      fx:id="sessionComboBox" onAction="#filter">
+                <items>
+                    <FXCollections fx:factory="observableArrayList"><String fx:value="None"/></FXCollections>
+                </items>
+            </ComboBox>
+            <Label GridPane.columnIndex="2" GridPane.rowIndex="4"> Difficulty </Label>
+            <ComboBox GridPane.columnIndex="2" GridPane.rowIndex="5"
+                      fx:id="difficultyComboBox" onAction="#filter">
+                <items>
+                    <FXCollections fx:factory="observableArrayList"><String fx:value="None"/></FXCollections>
+                </items>
+            </ComboBox>
+        </GridPane>
+    </TitledPane>
+    <TextField GridPane.columnIndex="0" GridPane.rowIndex="1"
+               promptText="Search" fx:id="searchBar" onKeyReleased="#search"/>
+    <ListView GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.rowSpan="3"
+              orientation="VERTICAL" fx:id="questionsPreview" onMouseClicked="#loadQuestion"/>
+    <TextArea GridPane.columnIndex="1" GridPane.rowIndex="0"
+              GridPane.rowSpan="3" editable="false" fx:id="questionDisplay"/>
+    <ListView GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.rowSpan="3"
+              orientation="VERTICAL" fx:id="attributesDisplay"/>
+    <ListView GridPane.columnIndex="1" GridPane.rowIndex="3" fx:id="worksheetPreview"
+              GridPane.rowSpan="2" GridPane.columnSpan="2" orientation="HORIZONTAL"/>
+    <Button GridPane.columnIndex="2" GridPane.rowIndex="4"
+            minWidth="48" minHeight="48"  GridPane.valignment="BOTTOM" GridPane.halignment="RIGHT"
+            fx:id="addToWorksheet" onAction="#addToWorksheet">
+        <graphic>
+            <ImageView fitHeight="36" fitWidth="36">
+                <image><Image url="file:res/icons/add.png"/></image>
+            </ImageView>
+        </graphic>
+    </Button>
+</GridPane>

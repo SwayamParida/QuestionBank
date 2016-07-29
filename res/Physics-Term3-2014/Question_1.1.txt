@@ -1,0 +1,5 @@
+The direction of resultant R = A X B= AB sinθ n is:
+ a) Along the direction of A and B 
+ b) Perpendicular to both A and B 
+ c) In the direction of unit vector 
+ d) Both b) and c)

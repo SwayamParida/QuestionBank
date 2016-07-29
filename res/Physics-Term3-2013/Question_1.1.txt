@@ -1,0 +1,6 @@
+Which among the following statement is incorrect for s simple harmonic oscillator?
+
+a) Motion is periodic
+b) Velocity is periodic
+c) Acceleration is periodic
+d) Force is directly proportional to the displacement and opposite to it.

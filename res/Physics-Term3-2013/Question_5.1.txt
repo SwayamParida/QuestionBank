@@ -1,0 +1,1 @@
+Derive the second kinematic equation of rotatory motion by the method of calculus. 

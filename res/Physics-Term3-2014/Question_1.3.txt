@@ -1,0 +1,6 @@
+The efficiency of a Carnot’s engine is determined by the temperature of:
+
+a) Source alone 
+b) Sink and the source 
+c) Sink alone 
+d) Working substance 
