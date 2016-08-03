@@ -6,9 +6,9 @@ import java.util.ArrayList;
 public class DataBaseReader {
 
     private static String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    private static String DATABASE_URL = "jdbc:mysql://localhost/Questions?useSSL=false";
+    private static String DATABASE_URL = "jdbc:mysql://localhost/Questionbank?useSSL=false";
     private static String USER = "root";
-    private static String PASSWORD = "Mrtsing3006";
+    private static String PASSWORD = "swayam";
 
     private QuestionCollection questions;
 
