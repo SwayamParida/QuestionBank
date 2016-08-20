@@ -1,4 +1,4 @@
-Which among the following statement is incorrect for s simple harmonic oscillator?
+Which among the following statement is incorrect for a simple harmonic oscillator?
 
 a) Motion is periodic
 b) Velocity is periodic

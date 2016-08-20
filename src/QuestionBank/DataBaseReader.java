@@ -5,10 +5,8 @@ import java.util.ArrayList;
 
 public class DataBaseReader {
 
-    private static String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    private static String DATABASE_URL = "jdbc:mysql://localhost/Questionbank?useSSL=false";
-    private static String USER = "root";
-    private static String PASSWORD = "swayam";
+    private static String JDBC_DRIVER = "org.sqlite.JDBC";
+    private static String DATABASE_URL = "jdbc:sqlite:res/Questionbank";
 
     private QuestionCollection questions;
 
@@ -29,7 +27,7 @@ public class DataBaseReader {
         }
         try {
             System.out.println("Connection to database...");
-            c = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
+            c = DriverManager.getConnection(DATABASE_URL);
             System.out.println("Connection successful");
         } catch (SQLException e) {
             System.out.println("Connection unsuccessful");

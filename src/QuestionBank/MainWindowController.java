@@ -3,6 +3,7 @@ package QuestionBank;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -10,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
 import java.net.URL;
@@ -20,15 +22,15 @@ public class MainWindowController implements Initializable {
     @FXML private ComboBox yearComboBox, topicComboBox, typesComboBox, sessionComboBox, difficultyComboBox;
     @FXML private ListView<Question> questionsPreview, worksheetPreview;
     @FXML private TextArea questionDisplay;
-    @FXML private ListView<String> attributesDisplay;
     @FXML private TextField searchBar;
+    @FXML private HBox attributesDisplay;
+    @FXML private Button year, session, type, difficulty, topic;
 
     private QuestionCollection questions;
 
     @Override
     public void initialize(URL FXML_file, ResourceBundle resources) {
-        DataBaseReader db = new DataBaseReader();
-        questions = db.getQuestions();
+        questions = new DataBaseReader().getQuestions();
         yearComboBox.getItems().addAll(questions.getUniqueYears());
         yearComboBox.setValue("None");
         topicComboBox.getItems().addAll(questions.getUniqueTopics());
@@ -41,32 +43,23 @@ public class MainWindowController implements Initializable {
         difficultyComboBox.setValue("None");
 
         addQuestionsToListView(questions.getQuestionsArray());
-
-        /**
-        attributesDisplay.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
-            @Override
-            public ListCell<String> call(ListView<String> attributesDisplay) {
-                return new Attribute();
-            }
-        });
-         */
     }
     private void addQuestionsToListView(ArrayList<Question> questions) {
         questionsPreview.getItems().clear();
-        ObservableList questionPreviewsList = FXCollections.observableArrayList();
-        questionPreviewsList.addAll(questions);
-        questionsPreview.setItems(questionPreviewsList);
+        ObservableList questionPreviewList = FXCollections.observableArrayList();
+        questionPreviewList.addAll(questions);
+        questionsPreview.setItems(questionPreviewList);
     }
     @FXML public void loadQuestion(MouseEvent event) throws NullPointerException {
         Question q = questionsPreview.getSelectionModel().getSelectedItem();
         questionDisplay.setText(q.getEntireQuestion());
 
-        attributesDisplay.getItems().clear();
-        attributesDisplay.getItems().add(new Integer(q.getYear()).toString());
-        attributesDisplay.getItems().add(q.getTopic());
-        attributesDisplay.getItems().add(q.getType());
-        attributesDisplay.getItems().add(q.getSession());
-        attributesDisplay.getItems().add(q.getDifficulty());
+        attributesDisplay.setVisible(true);
+        year.setText(new Integer(q.getYear()).toString());
+        type.setText(q.getType());
+        difficulty.setText(q.getDifficulty());
+        topic.setText(q.getTopic());
+        session.setText(q.getSession());
     }
     @FXML public void filter(ActionEvent event) {
         Object year = yearComboBox.getSelectionModel().getSelectedItem();
@@ -91,30 +84,43 @@ public class MainWindowController implements Initializable {
                 filter(null);
         }
     }
-    @FXML public void addToWorksheet(ActionEvent event) {
+    @FXML public void addToWorksheet(MouseEvent event) {
         Question selectedQuestion = questionsPreview.getSelectionModel().getSelectedItem();
         worksheetPreview.getItems().add(selectedQuestion);
     }
-
-    /**
-    private static class Attribute extends ListCell<String> {
-        private ImageView icon;
-        @Override
-        public void updateItem(String item, boolean empty) {
-            super.updateItem(item, empty);
-            if (item != null) {
-                switch (item) {
-                    case "Easy": icon = new ImageView("file:res/easy-icon.png"); break;
-                    case "Medium": icon = new ImageView("file:res/medium-icon.png"); break;
-                    case "Hard ": icon = new ImageView("file:res/hard-icon.png"); break;
-                }
-            }
-            if (icon != null) {
-                icon.setFitHeight(16);
-                icon.setFitWidth(16);
-            }
-            setText(item);
-            setGraphic(icon);
-        }
-    } */
+    @FXML public void setYearComboBox(MouseEvent event) {
+        yearComboBox.setValue(Integer.parseInt(year.getText()));
+        topicComboBox.setValue("None");
+        typesComboBox.setValue("None");
+        sessionComboBox.setValue("None");
+        difficultyComboBox.setValue("None");
+    }
+    @FXML public void setSessionComboBox(MouseEvent event) {
+        sessionComboBox.setValue(session.getText());
+        topicComboBox.setValue("None");
+        typesComboBox.setValue("None");
+        yearComboBox.setValue("None");
+        difficultyComboBox.setValue("None");
+    }
+    @FXML public void setDifficultyComboBox(MouseEvent event) {
+        difficultyComboBox.setValue(difficulty.getText());
+        topicComboBox.setValue("None");
+        typesComboBox.setValue("None");
+        sessionComboBox.setValue("None");
+        yearComboBox.setValue("None");
+    }
+    @FXML public void setTypesComboBox(MouseEvent event) {
+        typesComboBox.setValue(type.getText());
+        topicComboBox.setValue("None");
+        yearComboBox.setValue("None");
+        sessionComboBox.setValue("None");
+        difficultyComboBox.setValue("None");
+    }
+    @FXML public void setTopicComboBox(MouseEvent event) {
+        topicComboBox.setValue(topic.getText());
+        yearComboBox.setValue("None");
+        typesComboBox.setValue("None");
+        sessionComboBox.setValue("None");
+        difficultyComboBox.setValue("None");
+    }
 }

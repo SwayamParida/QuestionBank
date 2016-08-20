@@ -11,6 +11,7 @@
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.HBox?>
 <GridPane xmlns:fx="http://javafx.com/fxml"
           fx:controller="QuestionBank.MainWindowController"
           alignment="CENTER" hgap="10" vgap="10">
@@ -86,15 +87,23 @@
                promptText="Search" fx:id="searchBar" onKeyReleased="#search"/>
     <ListView GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.rowSpan="3"
               orientation="VERTICAL" fx:id="questionsPreview" onMouseClicked="#loadQuestion"/>
-    <TextArea GridPane.columnIndex="1" GridPane.rowIndex="0"
-              GridPane.rowSpan="3" editable="false" fx:id="questionDisplay"/>
-    <ListView GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.rowSpan="3"
-              orientation="VERTICAL" fx:id="attributesDisplay"/>
+    <TextArea GridPane.columnIndex="1" GridPane.rowIndex="0" wrapText="true"
+              GridPane.rowSpan="3" GridPane.columnSpan="2"
+              editable="false" fx:id="questionDisplay"/>
+    <HBox GridPane.columnIndex="1" GridPane.rowIndex="2" spacing="5.0"
+          GridPane.halignment="CENTER" GridPane.valignment="BOTTOM"
+          fx:id="attributesDisplay" visible="false">
+            <Button fx:id="year" onMouseClicked="#setYearComboBox"/>
+            <Button fx:id="session" onMouseClicked="#setSessionComboBox"/>
+            <Button fx:id="topic" onMouseClicked="#setTopicComboBox"/>
+            <Button fx:id="type" onMouseClicked="#setTypesComboBox"/>
+            <Button fx:id="difficulty" alignment="CENTER" onMouseClicked="#setDifficultyComboBox"/>
+    </HBox>
     <ListView GridPane.columnIndex="1" GridPane.rowIndex="3" fx:id="worksheetPreview"
-              GridPane.rowSpan="2" GridPane.columnSpan="2" orientation="HORIZONTAL"/>
+              GridPane.rowSpan="2" GridPane.columnSpan="2" orientation="VERTICAL"/>
     <Button GridPane.columnIndex="2" GridPane.rowIndex="4"
             minWidth="48" minHeight="48"  GridPane.valignment="BOTTOM" GridPane.halignment="RIGHT"
-            fx:id="addToWorksheet" onAction="#addToWorksheet">
+            fx:id="addToWorksheet" onMouseClicked="#addToWorksheet">
         <graphic>
             <ImageView fitHeight="36" fitWidth="36">
                 <image><Image url="file:res/icons/add.png"/></image>
