@@ -46,7 +46,7 @@ public class Question {
 
     @Override
     public String toString() {
-        return getQuestionPreview(15);
+        return getQuestionPreview(Main.PREVIEW_LENGTH);
     }
     public String getEntireQuestion() {
         FileReader inputStream = null;
@@ -71,7 +71,7 @@ public class Question {
         }
         return s;
     }
-    public String getQuestionPreview(int length) {
+    private String getQuestionPreview(int length) {
         return getEntireQuestion().substring(0, length) + Main.ELLIPSIS + "(" + marks + ")";
     }
 }

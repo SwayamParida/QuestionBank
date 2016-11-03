@@ -3,17 +3,19 @@ package QuestionBank;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.util.Callback;
+import javafx.stage.FileChooser;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -122,5 +124,23 @@ public class MainWindowController implements Initializable {
         typesComboBox.setValue("None");
         sessionComboBox.setValue("None");
         difficultyComboBox.setValue("None");
+    }
+    @FXML public void newWorksheet(ActionEvent event) {
+        ArrayList<Question> worksheetQuestions = new ArrayList<>();
+        worksheetQuestions.addAll(worksheetPreview.getItems());
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Worksheet");
+        File worksheet = fileChooser.showSaveDialog(Main.stage);
+        try {
+            PrintWriter writer = new PrintWriter(worksheet, "UTF-8");
+            int questionNumber = 1;
+            for (Question q : worksheetQuestions)
+                writer.println(questionNumber++ + " " + q.getEntireQuestion() + Main.NEWLINE);
+            writer.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (UnsupportedEncodingException e) {
+            System.out.println("Encoding option unavailable on platform");
+        }
     }
 }

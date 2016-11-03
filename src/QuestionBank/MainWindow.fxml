@@ -29,17 +29,24 @@
         <ColumnConstraints percentWidth="20"/>
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints percentHeight="35"/>
+        <RowConstraints percentHeight="2"/>
+        <RowConstraints percentHeight="40"/>
         <RowConstraints percentHeight="5"/>
         <RowConstraints percentHeight="15"/>
         <RowConstraints percentHeight="10"/>
         <RowConstraints percentHeight="20"/>
     </rowConstraints>
-    <TitledPane GridPane.columnIndex="0" GridPane.rowIndex="0"
-                text="Filter" collapsible="true">
+    <MenuBar GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="3"
+          fx:id="menuBar">
+                <Menu fx:id="new" text="New">
+                    <MenuItem fx:id="newWorksheet" onAction="#newWorksheet" text="New Worksheet"/>
+                </Menu>
+    </MenuBar>
+    <TitledPane GridPane.columnIndex="0" GridPane.rowIndex="1"
+                text="Filter" collapsible="false">
         <GridPane alignment="TOP_LEFT">
             <padding>
-                <Insets right="10" left="10" bottom="5" top="5"/>
+                <Insets right="10" left="10" bottom="10" top="10"/>
             </padding>
             <columnConstraints>
                 <ColumnConstraints percentWidth="47.5"/>
@@ -83,14 +90,14 @@
             </ComboBox>
         </GridPane>
     </TitledPane>
-    <TextField GridPane.columnIndex="0" GridPane.rowIndex="1"
+    <TextField GridPane.columnIndex="0" GridPane.rowIndex="2"
                promptText="Search" fx:id="searchBar" onKeyReleased="#search"/>
-    <ListView GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.rowSpan="3"
+    <ListView GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.rowSpan="3"
               orientation="VERTICAL" fx:id="questionsPreview" onMouseClicked="#loadQuestion"/>
-    <TextArea GridPane.columnIndex="1" GridPane.rowIndex="0" wrapText="true"
+    <TextArea GridPane.columnIndex="1" GridPane.rowIndex="1" wrapText="true"
               GridPane.rowSpan="3" GridPane.columnSpan="2"
               editable="false" fx:id="questionDisplay"/>
-    <HBox GridPane.columnIndex="1" GridPane.rowIndex="2" spacing="5.0"
+    <HBox GridPane.columnIndex="1" GridPane.rowIndex="3" spacing="5.0"
           GridPane.halignment="CENTER" GridPane.valignment="BOTTOM"
           fx:id="attributesDisplay" visible="false">
             <Button fx:id="year" onMouseClicked="#setYearComboBox"/>
@@ -99,9 +106,9 @@
             <Button fx:id="type" onMouseClicked="#setTypesComboBox"/>
             <Button fx:id="difficulty" alignment="CENTER" onMouseClicked="#setDifficultyComboBox"/>
     </HBox>
-    <ListView GridPane.columnIndex="1" GridPane.rowIndex="3" fx:id="worksheetPreview"
+    <ListView GridPane.columnIndex="1" GridPane.rowIndex="4" fx:id="worksheetPreview"
               GridPane.rowSpan="2" GridPane.columnSpan="2" orientation="VERTICAL"/>
-    <Button GridPane.columnIndex="2" GridPane.rowIndex="4"
+    <Button GridPane.columnIndex="2" GridPane.rowIndex="5"
             minWidth="48" minHeight="48"  GridPane.valignment="BOTTOM" GridPane.halignment="RIGHT"
             fx:id="addToWorksheet" onMouseClicked="#addToWorksheet">
         <graphic>

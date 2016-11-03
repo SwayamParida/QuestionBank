@@ -12,9 +12,12 @@ public class Main extends Application {
     public static final String TAB = "\t";
     public static final String NEWLINE = "\n";
     public static final String ELLIPSIS = "...";
+    public static final int PREVIEW_LENGTH = 15;
+    public static Stage stage;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        stage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
         Scene mainWindow = new Scene(root, 720, 720);
         primaryStage.setTitle("QuestionBank");
