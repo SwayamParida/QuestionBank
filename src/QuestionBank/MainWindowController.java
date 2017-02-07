@@ -3,11 +3,13 @@ package QuestionBank;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
@@ -22,17 +24,20 @@ import java.util.ResourceBundle;
 
 public class MainWindowController implements Initializable {
     @FXML private ComboBox yearComboBox, topicComboBox, typesComboBox, sessionComboBox, difficultyComboBox;
-    @FXML private ListView<Question> questionsPreview, worksheetPreview;
+    @FXML private ListView<Question> questionsPreview;
+    @FXML private ListView<String> worksheetPreview;
     @FXML private TextArea questionDisplay;
     @FXML private TextField searchBar;
     @FXML private HBox attributesDisplay;
     @FXML private Button year, session, type, difficulty, topic;
 
     private QuestionCollection questions;
+    private QuestionCollection worksheetQuestions;
 
     @Override
     public void initialize(URL FXML_file, ResourceBundle resources) {
         questions = new DataBaseReader().getQuestions();
+        worksheetQuestions = new QuestionCollection(new ArrayList<>());
         yearComboBox.getItems().addAll(questions.getUniqueYears());
         yearComboBox.setValue("None");
         topicComboBox.getItems().addAll(questions.getUniqueTopics());
@@ -88,7 +93,28 @@ public class MainWindowController implements Initializable {
     }
     @FXML public void addToWorksheet(MouseEvent event) {
         Question selectedQuestion = questionsPreview.getSelectionModel().getSelectedItem();
-        worksheetPreview.getItems().add(selectedQuestion);
+        try {
+            worksheetPreview.getItems().add(selectedQuestion.getQuestionPreview(Main.WORKSHEET_PREVIEW_LENGTH));
+        } catch (StringIndexOutOfBoundsException e) {
+            worksheetPreview.getItems().add(selectedQuestion.getQuestionPreview(selectedQuestion.getEntireQuestion().length()));
+        }
+        worksheetQuestions.addQuestion(selectedQuestion);
+    }
+    @FXML public void popupMenu(MouseEvent event) {
+        if (event.getButton() == MouseButton.SECONDARY) {
+            ContextMenu popupMenu = new ContextMenu();
+            MenuItem delete = new MenuItem("Delete");
+            delete.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    int selectedQuestionIndex = worksheetPreview.getSelectionModel().getSelectedIndex();
+                    worksheetPreview.getItems().remove(selectedQuestionIndex);
+                    worksheetQuestions.removeQuestion(selectedQuestionIndex);
+                }
+            });
+            popupMenu.getItems().addAll(delete);
+            popupMenu.show(worksheetPreview, event.getScreenX(), event.getScreenY());
+        }
     }
     @FXML public void setYearComboBox(MouseEvent event) {
         yearComboBox.setValue(Integer.parseInt(year.getText()));
@@ -126,15 +152,13 @@ public class MainWindowController implements Initializable {
         difficultyComboBox.setValue("None");
     }
     @FXML public void newWorksheet(ActionEvent event) {
-        ArrayList<Question> worksheetQuestions = new ArrayList<>();
-        worksheetQuestions.addAll(worksheetPreview.getItems());
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Worksheet");
         File worksheet = fileChooser.showSaveDialog(Main.stage);
         try {
             PrintWriter writer = new PrintWriter(worksheet, "UTF-8");
             int questionNumber = 1;
-            for (Question q : worksheetQuestions)
+            for (Question q : worksheetQuestions.getQuestionsArray())
                 writer.println(questionNumber++ + " " + q.getEntireQuestion() + Main.NEWLINE);
             writer.close();
         } catch (FileNotFoundException e) {

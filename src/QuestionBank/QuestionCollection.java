@@ -130,6 +130,9 @@ public class QuestionCollection {
     public void addQuestion(Question question) {
         questionsArray.add(question);
     }
+    public void removeQuestion(int index) {
+        questionsArray.remove(index);
+    }
 
     private void filterYear(Integer year) {
         for (Iterator<Question> i = filteredQuestions.iterator(); i.hasNext();) {

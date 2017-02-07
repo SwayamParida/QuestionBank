@@ -95,10 +95,10 @@
     <ListView GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.rowSpan="3"
               orientation="VERTICAL" fx:id="questionsPreview" onMouseClicked="#loadQuestion"/>
     <TextArea GridPane.columnIndex="1" GridPane.rowIndex="1" wrapText="true"
-              GridPane.rowSpan="3" GridPane.columnSpan="2"
+              GridPane.rowSpan="3" GridPane.columnSpan="2" maxHeight="385"
               editable="false" fx:id="questionDisplay"/>
-    <HBox GridPane.columnIndex="1" GridPane.rowIndex="3" spacing="5.0"
-          GridPane.halignment="CENTER" GridPane.valignment="BOTTOM"
+    <HBox GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.columnSpan="2" spacing="5.0"
+          GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" GridPane.hgrow="ALWAYS"
           fx:id="attributesDisplay" visible="false">
             <Button fx:id="year" onMouseClicked="#setYearComboBox"/>
             <Button fx:id="session" onMouseClicked="#setSessionComboBox"/>
@@ -107,7 +107,7 @@
             <Button fx:id="difficulty" alignment="CENTER" onMouseClicked="#setDifficultyComboBox"/>
     </HBox>
     <ListView GridPane.columnIndex="1" GridPane.rowIndex="4" fx:id="worksheetPreview"
-              GridPane.rowSpan="2" GridPane.columnSpan="2" orientation="VERTICAL"/>
+              GridPane.rowSpan="2" GridPane.columnSpan="2" orientation="VERTICAL" onMouseClicked="#popupMenu"/>
     <Button GridPane.columnIndex="2" GridPane.rowIndex="5"
             minWidth="48" minHeight="48"  GridPane.valignment="BOTTOM" GridPane.halignment="RIGHT"
             fx:id="addToWorksheet" onMouseClicked="#addToWorksheet">

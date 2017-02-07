@@ -71,7 +71,7 @@ public class Question {
         }
         return s;
     }
-    private String getQuestionPreview(int length) {
+    public String getQuestionPreview(int length) {
         return getEntireQuestion().substring(0, length) + Main.ELLIPSIS + "(" + marks + ")";
     }
 }

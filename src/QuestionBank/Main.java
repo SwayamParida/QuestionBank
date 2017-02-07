@@ -13,6 +13,7 @@ public class Main extends Application {
     public static final String NEWLINE = "\n";
     public static final String ELLIPSIS = "...";
     public static final int PREVIEW_LENGTH = 15;
+    public static final int WORKSHEET_PREVIEW_LENGTH = 60;
     public static Stage stage;
 
     @Override
