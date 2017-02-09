@@ -1,0 +1,7 @@
+In a P-V diagram of an ideal gas the area under the curve will give you 
+
+a) the internal energy of the system 
+b) the work done along the process 
+c) the amount of heat energy given to the system 
+d) the amount of heat energy given out by the system
+
