@@ -1,0 +1,1 @@
+Show graphically how resistance of a piece of carbon varies with temperature.

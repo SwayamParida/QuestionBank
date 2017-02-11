@@ -1,0 +1,1 @@
+A constant retarding force of 50 N is applied to a body of mass 20 kg moving initially at a speed of 15 m/s. How long does the body take to stop?

@@ -159,7 +159,7 @@ public class MainWindowController implements Initializable {
             PrintWriter writer = new PrintWriter(worksheet, "UTF-8");
             int questionNumber = 1;
             for (Question q : worksheetQuestions.getQuestionsArray())
-                writer.println(questionNumber++ + " " + q.getEntireQuestion() + Main.NEWLINE);
+                writer.println(questionNumber++ + " " + q.getEntireQuestion() + Main.NEWLINE + Main.NEWLINE);
             writer.close();
         } catch (FileNotFoundException e) {
             System.out.println("File not found");

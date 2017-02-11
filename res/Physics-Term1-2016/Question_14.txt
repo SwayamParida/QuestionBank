@@ -1,0 +1,1 @@
+Find the angle of projection at which the horizontal range and the maximum height are equal.
