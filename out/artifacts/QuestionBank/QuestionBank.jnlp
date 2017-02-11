@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="QuestionBank.jnlp">
+  <information>
+    <title>Questionbank</title>
+    <vendor>Swayam Parida</vendor>
+    <description>An application that contains a repository of questions from previous exam question papers, indexed and assigned attributes (metadata). The application is intended for use by teachers and students who wish to create learning material. </description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="QuestionBank.jar" size="19439" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="720" height="720" main-class="QuestionBank.Main"  name="QuestionBank" />
+  <update check="background"/>
+</jnlp>
