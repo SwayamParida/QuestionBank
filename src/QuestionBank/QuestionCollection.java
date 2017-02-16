@@ -56,6 +56,17 @@ public class QuestionCollection {
     public ArrayList<String> getSessions() { return sessions; }
     public ArrayList<Integer> getMarks() { return marks; }
     public ArrayList<String> getDifficulties() { return difficulties; }
+
+    /**
+     * Filters the questions in the <code>questionsArray</code> ArrayList and populates the <code>filteredQuestions</code>
+     * ArrayList
+     * @param year
+     * @param topic
+     * @param type
+     * @param session
+     * @param difficulty
+     * @return
+     */
     public ArrayList<Question> getFilteredQuestions(Object year, String topic, String type, String session, String difficulty) {
         filteredQuestions = new ArrayList<>(questionsArray);
         try {
@@ -175,10 +186,15 @@ public class QuestionCollection {
         }
     }
 
+    /**
+     * Returns a <code>QuestionCollection</code> containing all questions that contain the string <code>searchString</code>
+     * @param searchString search key to filter out questions
+     * @return <code>QuestionCollection</code> of search results
+     */
     public QuestionCollection search(String searchString) {
         ArrayList<Question> searchResults = new ArrayList<>();
         for (Question q : questionsArray) {
-            if (q.getEntireQuestion().toLowerCase().indexOf(searchString.toLowerCase()) != -1)
+            if (q.toString().toLowerCase().indexOf(searchString.toLowerCase()) != -1)
                 searchResults.add(q);
         }
         return new QuestionCollection(searchResults);

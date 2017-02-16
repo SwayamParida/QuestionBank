@@ -107,7 +107,8 @@
             <Button fx:id="difficulty" alignment="CENTER" onMouseClicked="#setDifficultyComboBox"/>
     </HBox>
     <ListView GridPane.columnIndex="1" GridPane.rowIndex="4" fx:id="worksheetPreview"
-              GridPane.rowSpan="2" GridPane.columnSpan="2" orientation="VERTICAL" onMouseClicked="#popupMenu"/>
+              GridPane.rowSpan="2" GridPane.columnSpan="2" orientation="VERTICAL"
+              onMouseClicked="#worksheetPreviewClicked"/>
     <Button GridPane.columnIndex="2" GridPane.rowIndex="5"
             minWidth="48" minHeight="48"  GridPane.valignment="BOTTOM" GridPane.halignment="RIGHT"
             fx:id="addToWorksheet" onMouseClicked="#addToWorksheet">

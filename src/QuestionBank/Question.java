@@ -44,11 +44,12 @@ public class Question {
     public void setMarks(int marks) { this.marks = marks; }
     public void setDifficulty(String difficulty) { this.difficulty = difficulty; }
 
+    /**
+     * Opens the file specified in the <code>questionFile</code> attribute and reads it's contents.
+     * @return the question text content stored in the file
+     */
     @Override
     public String toString() {
-        return getQuestionPreview(Main.PREVIEW_LENGTH);
-    }
-    public String getEntireQuestion() {
         FileReader inputStream = null;
         BufferedReader inputBuffer;
         String s = new String();
@@ -58,6 +59,7 @@ public class Question {
             String line;
             while ((line = inputBuffer.readLine()) != null)
                 s = s + line + Main.NEWLINE;
+            s = s + Main.NEWLINE;
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
             e.printStackTrace();
@@ -70,8 +72,5 @@ public class Question {
             e.printStackTrace();
         }
         return s;
-    }
-    public String getQuestionPreview(int length) {
-        return getEntireQuestion().substring(0, length) + Main.ELLIPSIS;
     }
 }

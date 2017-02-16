@@ -23,9 +23,9 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class MainWindowController implements Initializable {
-    @FXML private ComboBox yearComboBox, topicComboBox, typesComboBox, sessionComboBox, difficultyComboBox;
+    @FXML private ComboBox<Object> yearComboBox, topicComboBox, typesComboBox, sessionComboBox, difficultyComboBox;
     @FXML private ListView<Question> questionsPreview;
-    @FXML private ListView<String> worksheetPreview;
+    @FXML private ListView<Question> worksheetPreview;
     @FXML private TextArea questionDisplay;
     @FXML private TextField searchBar;
     @FXML private HBox attributesDisplay;
@@ -37,6 +37,7 @@ public class MainWindowController implements Initializable {
     @Override
     public void initialize(URL FXML_file, ResourceBundle resources) {
         questions = new DataBaseReader().getQuestions();
+
         worksheetQuestions = new QuestionCollection(new ArrayList<>());
         yearComboBox.getItems().addAll(questions.getUniqueYears());
         yearComboBox.setValue("None");
@@ -53,16 +54,33 @@ public class MainWindowController implements Initializable {
     }
     private void addQuestionsToListView(ArrayList<Question> questions) {
         questionsPreview.getItems().clear();
-        ObservableList questionPreviewList = FXCollections.observableArrayList();
+        ObservableList<Question> questionPreviewList = FXCollections.observableArrayList();
         questionPreviewList.addAll(questions);
         questionsPreview.setItems(questionPreviewList);
+
+        questionsPreview.setCellFactory(param -> new ListCell<Question>(){
+            {
+                prefWidthProperty().bind(questionsPreview.widthProperty().subtract(10));
+                setMaxWidth(Control.USE_PREF_SIZE);
+            }
+            @Override
+            protected void updateItem(Question item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (item != null && !empty) {
+                    setText(item.toString());
+                } else {
+                    setText(null);
+                }
+            }
+        });
     }
     @FXML public void loadQuestion(MouseEvent event) throws NullPointerException {
         Question q = questionsPreview.getSelectionModel().getSelectedItem();
-        questionDisplay.setText(q.getEntireQuestion());
+        questionDisplay.setText(q.toString());
 
         attributesDisplay.setVisible(true);
-        year.setText(new Integer(q.getYear()).toString());
+        year.setText(Integer.toString(q.getYear()));
         type.setText(q.getType());
         difficulty.setText(q.getDifficulty());
         topic.setText(q.getTopic());
@@ -77,15 +95,26 @@ public class MainWindowController implements Initializable {
 
         addQuestionsToListView(questions.getFilteredQuestions(year, topic, type, session, difficulty));
     }
+
+    /**
+     * Event handler that modifies the <code>questionPreview</code> to display all questions that contain the search string extracted from the
+     * <code>searchBar</code>
+     */
     @FXML public void search(KeyEvent event) {
+        // Extracting search key from the search bar
         String searchString = searchBar.getText();
+        // Search functionality triggered when user presses enter
         if (event.getCode().equals(KeyCode.ENTER)) {
+            // Extracting questions currently in view in the questionPreview
             ObservableList<Question> questionsInView_OL = questionsPreview.getItems();
+            // Duplicating questions from observable list to ArrayList
             ArrayList<Question> questionsInView_AL = new ArrayList<>();
-            for (Question q : questionsInView_OL)
-                questionsInView_AL.add(q);
+            questionsInView_AL.addAll(questionsInView_OL);
+            // Creating a QuestionCollection object of search results by invoking search(String) method in QuestionCollection class
             QuestionCollection searchResults = new QuestionCollection(questionsInView_AL).search(searchString);
+            // Updating questionPreview to display search results
             addQuestionsToListView(searchResults.getQuestionsArray());
+            // questionPreview reverted to original list of questions when user deletes search string until search bar is empty
         } else if (event.getCode().equals(KeyCode.BACK_SPACE)) {
             if (searchBar.getText().isEmpty())
                 filter(null);
@@ -93,14 +122,10 @@ public class MainWindowController implements Initializable {
     }
     @FXML public void addToWorksheet(MouseEvent event) {
         Question selectedQuestion = questionsPreview.getSelectionModel().getSelectedItem();
-        try {
-            worksheetPreview.getItems().add(selectedQuestion.getQuestionPreview(Main.WORKSHEET_PREVIEW_LENGTH));
-        } catch (StringIndexOutOfBoundsException e) {
-            worksheetPreview.getItems().add(selectedQuestion.getQuestionPreview(selectedQuestion.getEntireQuestion().length()));
-        }
+        worksheetPreview.getItems().add(selectedQuestion);
         worksheetQuestions.addQuestion(selectedQuestion);
     }
-    @FXML public void popupMenu(MouseEvent event) {
+    @FXML public void worksheetPreviewClicked(MouseEvent event) {
         if (event.getButton() == MouseButton.SECONDARY) {
             ContextMenu popupMenu = new ContextMenu();
             MenuItem delete = new MenuItem("Delete");
@@ -114,6 +139,16 @@ public class MainWindowController implements Initializable {
             });
             popupMenu.getItems().addAll(delete);
             popupMenu.show(worksheetPreview, event.getScreenX(), event.getScreenY());
+        } else if (event.getButton() == MouseButton.PRIMARY) {
+            Question q = worksheetPreview.getSelectionModel().getSelectedItem();
+            questionDisplay.setText(q.toString());
+
+            attributesDisplay.setVisible(true);
+            year.setText(Integer.toString(q.getYear()));
+            type.setText(q.getType());
+            difficulty.setText(q.getDifficulty());
+            topic.setText(q.getTopic());
+            session.setText(q.getSession());
         }
     }
     @FXML public void setYearComboBox(MouseEvent event) {
@@ -159,7 +194,7 @@ public class MainWindowController implements Initializable {
             PrintWriter writer = new PrintWriter(worksheet, "UTF-8");
             int questionNumber = 1;
             for (Question q : worksheetQuestions.getQuestionsArray())
-                writer.println(questionNumber++ + " " + q.getEntireQuestion() + Main.NEWLINE + Main.NEWLINE);
+                writer.println(questionNumber++ + " " + q.toString() + Main.NEWLINE);
             writer.close();
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
